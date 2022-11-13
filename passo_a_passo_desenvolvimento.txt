@@ -1,0 +1,35 @@
+1º) Criação da estrutura base;
+    -> Imports;
+    -> Função principal (função App());
+    -> (opcional) Teste básico, na View principal, para verificar se está mostrando na tela.
+2º) Inserir imagem;
+3º) Trabalhar com o botões (TouchableOpacity);
+4º) Estilizar;
+5º) Trabalhar com as variáveis (fora da função principal);
+    -> Variável para armazenar a cronometragem;
+    -> Variável para armazenar os segundos;
+    -> Variável para armazenar os minutos;
+    -> Variável para armazenar as horas.
+6º) Trabalhar com os states;
+    -> state para receber e trocar o valor cronometrado;
+    -> state para mudar o valor/texto do botão (Iniciar/Pausar);
+    -> state para que, quando o usuário iniciar ou atualizar a aplicação, o tempo cronometrado seja apagado.
+7º) Trabalhar com a inicialização da cronometragem, onde:
+    -> Comparamos se o tempo cronometrado é diferente de nulo.
+        -> Se for, devemos parar a cronometragem.
+            -> Limpar o cronômetro.
+            -> O tempo deve volar a ser nulo.
+            -> Mudar o valor/texto do botão para "Iniciar".
+        -> Se não for, devemos fazer a contagem do tempo.
+            -> Usar 'setInterval', onde contamos de 1 em 1 segundo e incremetamos a variável criada para armazenar os segundos (passo 5). Após isto, comparamos se os segundos são iguais a 60: se forem, incrementa os minutos enquanto os segundos voltam a valer zero. E, por fim, comparamos se os minutos são iguais a 60: se forem, incrementa as horas enquanto os segundos voltam a valer zero.
+            -> Formatamos a horas e a atribuímos para a variável criada para armazenar a cronometragem (passo 5).
+            -> Mudamos o valor/texto do botão para "Pausar".
+8º) Trabalhar com a limpeza do cronômetro, onde:
+    -> Comparamos se o tempo cronometrado é diferente de nulo.
+        -> Se for, devemos parar a cronometragem.
+            -> Limpar o cronômetro.
+            -> O tempo deve volar a ser nulo.
+            -> Mudar o valor/texto do botão para "Iniciar".
+        -> Atualizamos o último tempo cronometrado.
+        -> Zeramos o cronometro (horas, minutos e segundos).
+        -> Mudar o valor/texto do botão para "Iniciar".
