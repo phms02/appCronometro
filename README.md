@@ -16,4 +16,10 @@ HTML, CSS e JavaScript, React e React Native.
 Aprendi a fazer a contagem do tempo usansando laços de repetição e iterações, resetar a contagem e como pausar uma contagem de laço de repetição. Fiz o meu primeiro projeto utilizando React.js e React Native, sendo o meu primeiro projeto mobile.
 
 ## Como ficou o projeto:
+![Imagem 1](https://user-images.githubusercontent.com/83307765/201541321-c501bc39-382e-4166-9898-16f4f4a6bbb3.png)
 
+![Imagem 2](https://user-images.githubusercontent.com/83307765/201541363-1fb4e8ad-a9c6-46b1-84d1-b3f88de9ccd5.png)
+
+![Imagem 3](https://user-images.githubusercontent.com/83307765/201541401-0093aa0b-d918-4632-81d9-f1b6c7fb785a.png)
+
+![Imagem 4](https://user-images.githubusercontent.com/83307765/201541426-1cee6cdd-48b4-4dc4-9a2c-6fcdc820f41a.png)
