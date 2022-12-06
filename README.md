@@ -1,7 +1,7 @@
 # Aplicativo de cronômetro
 
 ## Descrição do projeto:
-O objetivo deste projeto foi desenvolver um <b>aplicativo de croômetro</b>, no qual há dois botões: um para iniciar a croonometragem e, outro, para limpar o cronômetro.
+O objetivo deste projeto foi desenvolver um <b>aplicativo de croômetro</b>, no qual há dois botões: um para iniciar a croonometragem e outro para limpar o cronômetro.
 
 Ao clicar em "Iniciar", será iniciado a cronometragem e o texto deste botão automaticamente será mudado para "Pausar", dando a oportnuidade de o usuário pausar o cronômetro sem precisar limpar o tempo.
 
