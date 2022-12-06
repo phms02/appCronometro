@@ -1,4 +1,4 @@
-# Áplicativo de cronômetro
+# Aplicativo de cronômetro
 
 ## Descrição do projeto:
 O objetivo deste projeto foi desenvolver um <b>aplicativo de croômetro</b>, no qual há dois botões: um para iniciar a croonometragem e, outro, para limpar o cronômetro.
