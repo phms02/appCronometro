@@ -1,138 +1,185 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native"
+
+// Variável para a armazenar a cronometragem e a inicializo como NULA, porque, toda vez que o usuário inicializar ou atualizar a aplicação, o tempo será RESETADO, sendo NULO...
+let timer = null
+
+// Variável para armazenar os SEGUNDOS...
+let segundos = 0
+
+// Variável para armazenar os MINUTOS...
+let minutos = 0
+
+// Variável para armazenar as HORAS...
+let horas = 0
 
 export default function App() {
-  const [img, setImg] = useState(require("./src/biscoito_fechado.png"))
-  const [frase, setFrase] = useState("")
-  const [disabled, setDisabled] = useState(false)
+  // Criando um state para receber e trocar o valor cronometrado. Toda vez que o usuário clicar em "Limpar", se tiver um valor salvo, este valor será trocado...
+  const [numero, setNumero] = useState(0)
 
-  let frases = [
-    "Olhe ao passado para buscar sabedoria e ao futuro para ter esperança.",
-    "Você nunca vai chegar no futuro enquanto seu passado for presente...",
-    "É em meio a dificuldade que se encontra a oportunidade.",
-    "O êxito é ir de frustração a frustração sem perder a animação.",
-    "A maior prova de que você pode fazer o impossível, é superar circunstâncias difíceis.",
-    "Qualquer dificuldade pode ser ultrapassada, já que para todo problema há uma solução...",
-    "Suas pequenas vitórias são todas as dificuldades superadas durante sua vida, tenha orgulho delas.",
-    "As dores não são eternas, se permita, o seu melhor é o suficiente!",
-    "Mesmo que a jornada seja lenta, abrir mão não acelera.",
-    "Que a expectativa por dias melhores nunca nos falte!",
-    "A superação da dificuldade depende apenas de você.",
-    "Superação é esquecer o ontem para um amanhã melhor e promitente.",
-    "Seus medos morrerão de fome, se alimentar a sua motivação.",
-    "Vencer momentos difíceis pede esforço, entretanto todos somos capacitados para isso, recomeçar e escolher um novo caminho...",
-    "Não há outra forma de crescer, senão superar os desafios e os medos. Deixe-os vir!"
-  ]
+  // Criando um state para mudar o valor/texto do botão. Quando o cronômetro estiver parado, deve aparecer o texto "Iniciar"; quando o cronômetro estiver rodando, deve aparecer "Limpar"...
+  const [botao, setBotao] = useState("Iniciar")
 
-  function quebrarBiscoito() {
-    let numeroAleatorio = Math.floor(Math.random() * frases.length)
-    // 'Math.floor()' serve para gerar um número aleatório.
+  // Criando um state para que, quando o usuário iniciar ou atualizar a aplicação, o tempo cronometrado seja apagado.
+  const [ultimoTempo, setUltimoTempo] = useState(null)
 
-    // Imprimindo a frase...
-    setFrase('"' + frases[numeroAleatorio] + '"')
+  function iniciar() {
+    if(timer !== null) {
+      // Aqui, temos que parar o cronômetro!
+      clearInterval(timer)  // Limpa o cronômetro.
+  
+      // Se o cronômetro estiver parado, o tempo deve voltar a ser nulo...
+      timer = null
+  
+      // Se o botão estiver parado, precisamos mudar o valor/texto do botão...
+      setBotao("Iniciar")
+    } else {
+      // Faz a contagem de tempo...
 
-    // Mudando o biscoito fechado para o biscoito aberto...
-    setImg(require("./src/biscoito_aberto.png"))
+      /*
+        Quando a contagem iniciar, os segundos precisam ser acrescentados/aumentados de 1 em 1 segundo. Para isto, utilizo o 'setInterval'.
 
-    setDisabled(true)
+        Utilizo o 'setInterval' para que o tempo seja acrescentado/aumentado de 1 em 1 segundo - ou, então, de 1000 em 1000 milissegundos -, indefinidamente. Ou, pelo menos, até o usuário pausar/parar.
+      */
+
+      timer = setInterval(() => {
+        segundos++
+
+        if(segundos == 60) {
+          segundos = 0
+          minutos++
+        }
+
+        if(minutos == 60) {
+          minutos = 0
+          horas++
+        }
+
+        // Formatando as horas: se a hora for MENOR que 10, acrescenta um zero à esquerda. Senão - isto é, maior ou igual a 10 -, não coloca zero à esquerda e apenas mostra a hora...
+        let horaFormatada = (
+          (horas < 10 ? "0" + horas : horas) + ":"
+          +
+          (minutos < 10 ? "0" + minutos : minutos) + ":"
+          +
+          (segundos < 10 ? "0" + segundos : segundos)
+        )
+
+        // Mudando o tempo cronometrado para a hora formatada...
+        setNumero(horaFormatada)
+      }, 1000)
+
+      // Mudando o valor/texto do botão...
+      setBotao("Pausar")
+    }
   }
 
-  function reiniciarBiscoito() {
-    // Limpando a frase...
-    setFrase("")
+  function limpar() {
+    if(timer !== null) {
+      // Aqui, temos que parar o cronômetro!
+      clearInterval(timer)  // Limpa o intervalo de tempo.
+  
+      // Se o cronômetro estiver parado, o tempo deve voltar a ser nulo...
+      timer = null
+  
+      // Se o botão estiver parado, precisamos mudar o valor/texto do botão...
+      setBotao("Iniciar")
+    }
 
-    // Mudando o biscoito aberto para o biscoito fechado...
-    setImg(require("./src/biscoito_fechado.png"))
+    // Passando o último valor cronometrado para 'setUltimoTempo'...
+    setUltimoTempo(numero)
 
-    setDisabled(false)
+    // Zerando o cronômetro...
+    segundos = 0
+    minutos = 0
+    horas = 0
+
+    // Mudando o valor/texto do botão...
+    setBotao("Iniciar")
   }
 
   return (
     <View style={styles.container}>
       <Image
-        source={img}
-        style={styles.img}
+        source={
+          require("./src/cronometro.png")
+        }
       />
 
-      <Text style={styles.textoFrase}>
-        {frase}
+      <Text style={styles.timer}>
+        {numero}
       </Text>
 
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={quebrarBiscoito}
-        disabled={disabled}
-      >
-        <View style={styles.btnArea}>
-          <Text style={styles.btnTexto}>
-            Quebrar biscoito
+      <View style={styles.btnArea}>
+        {/*
+          'TouchableOpacity' faz com que, quando pressionamos o botão, ocorra o efeito de opacidade neste botão.
+        */}
+        <TouchableOpacity style={styles.btn} onPress={iniciar}>
+          <Text style={styles.btnText}>
+            {botao}
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[
-          styles.botao,
-          {
-            marginTop: 15, borderColor: '121212'
-          }
-        ]}
-        onPress={reiniciarBiscoito}
-        >
-        <View style={styles.btnArea}>
-          <Text style={[
-            styles.btnTexto,
-            {
-              color: '121212'
-            }
-          ]}
-          >
-            Quero abrir outro biscoito
+        <TouchableOpacity style={styles.btn} onPress={limpar}>
+          <Text style={styles.btnText}>
+            Limpar
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.areaImpressao}>
+        <Text style={styles.tempoDecorrido}>
+          {ultimoTempo ? "Último tempo registrado: " + ultimoTempo : ""}
+        </Text>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,  // A View "mãe" ocupará toda a nossa tela.
-    justifyContent: "center",  // Centralizando VERTICALMENTE, ou seja, na COLUNA.
-    alignItems: "center",  // Centralizando VERTICALMENTE, ou seja, na LINHA.
-    backgroundColor: '#B0B7C0'
+  container: {
+    flex: 1,
+    alignItems: "center",  // Alinhamento HORIZONTAL (alinhamento na LINHA)! Isto porque, por padrão, o alinhamento do React Native é colmun, e eu estou utilizando este padrão.
+    justifyContent: "center", // Alinhamento VERTICAL (alinhamento na COLUNA)! Isto porque, por padrão, o alinhamento do React Native é colmun, e eu estou utilizando este padrão.
+    backgroundColor: "#2B6AD0"
   },
 
-  img:{
-    width: 230,
-    height: 230
+  timer: {
+    fontSize: 40,
+    fontWeigth: "bold",
+    marginTop: -160,
+    color: "#FFFFFF"
   },
 
-  textoFrase:{
-    fontSize: 20,
-    fontStyle: "italic",
-    color: '#dd7b22',
-    textAlign: "center",
-    margin: 30
+  btnArea: {
+    flexDirection: "row",  // Deixando os botões na MESMA linha.
+    marginTop: 130,
+    heigth: 45
   },
 
-  botao:{
-    borderColor: '#dd7b22',
-    borderWidth: 2,
-    borderRadius: 25,
-    width: 230,
-    height: 50
+  btn: {
+    flex: 1,
+    alignItems: "center",  // Alinhamento HORIZONTAL (alinhamento na LINHA)! Isto porque, por padrão, o alinhamento do React Native é colmun, e eu estou utilizando este padrão.
+    justifyContent: "center", // Alinhamento VERTICAL (alinhamento na COLUNA)! Isto porque, por padrão, o alinhamento do React Native é colmun, e eu estou utilizando este padrão.
+    heigth: 40,
+    margin: 20,
+    backgroundColor: '#1560ea',
+    borderRadius: 10
   },
 
-  btnArea:{
-    flex: 1,  // A View do botão tentará ocupar todo o espaço disponível dentro do botão.
-    justifyContent: "center",  // Centralizando VERTICALMENTE, ou seja, na COLUNA.
-    alignItems: "center"  // Centralizando HORIZONTALMENTE, ou seja, na LINHA.
-  },
-
-  btnTexto:{
-    fontSize: 17,
+  btnText: {
+    fontSize: 22,
     fontWeight: "bold",
-    color: '#dd7b22',
+    color: '#11c411'
+  },
+
+  areaImpressao: {
+    marginTop: 20
+  },
+
+  tempoDecorrido: {
+    fontSize: 22,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    color: '#1bc8e4'
   }
 })
