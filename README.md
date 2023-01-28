@@ -10,7 +10,7 @@ Ao clicar em "Limpar", o usuário encerra a cronometragem e será impresso, na t
 Neste projeto, o objetivo não foi trabalhar com a responsividade.
 
 ## Tecnologias utilizadas:
-HTML, CSS e JavaScript, React e React Native.
+JavaScript, React e React Native.
 
 ## Conhecimentos adquirdos durante o desenvolvimento:
 Aprendi a fazer a contagem do tempo usansando laços de repetição e iterações, resetar a contagem e como pausar uma contagem de laço de repetição. Fiz o meu primeiro projeto utilizando React.js e React Native, sendo o meu primeiro projeto mobile.
